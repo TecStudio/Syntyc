@@ -1,28 +1,217 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title> SIANCE</title>
-    <style>
-      
-    </style>
-  </head>
-  <body>
-    <div>
-      <h1>
-        SORRY
-        <h2>
-          this service is not avaliable in your country/is not avaliable in general by this time
-          <h2>
-            we are working to solve it
-          </h2>
-        </h2>
-      </h1>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Unavailable · Siance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080810;
+      --border:   rgba(255,255,255,0.08);
+      --text:     rgba(255,255,255,0.85);
+      --text-dim: rgba(255,255,255,0.35);
+      --text-meta:rgba(255,255,255,0.2);
+      --accent:   #534AB7;
+      --accent2:  #1D9E75;
+      --grid:     rgba(100,80,255,0.06);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      font-family: 'Syne', sans-serif;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .grid-bg {
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 300px; height: 300px; background: rgba(83,74,183,0.2); top: -80px; right: 60px; animation-delay: 0s; }
+    .orb-2 { width: 200px; height: 200px; background: rgba(29,158,117,0.12); bottom: 60px; left: -60px; animation-delay: -3s; }
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(20px, 20px) scale(1.08); }
+    }
+
+    .wrap {
+      position: relative; z-index: 2;
+      height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px;
+      text-align: center;
+      gap: 0;
+    }
+
+    /* Brand */
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+    .brand-dot {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: linear-gradient(135deg, #534AB7, #1D9E75);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800; color: #fff;
+    }
+    .brand-name { font-size: 16px; font-weight: 700; letter-spacing: 0.5px; }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(220,50,50,0.1);
+      border: 0.5px solid rgba(220,50,50,0.3);
+      border-radius: 20px; padding: 5px 14px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.25s forwards;
+    }
+    .status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #e05555;
+      animation: blink 2s infinite;
+    }
+    .status-txt { font-size: 11px; color: rgba(220,100,100,0.9); font-family: 'DM Mono', monospace; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* Code */
+    .error-code {
+      font-size: clamp(80px, 18vw, 140px);
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, rgba(83,74,183,0.6), rgba(255,255,255,0.15));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -4px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+
+    /* Divider */
+    .divider {
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 auto 24px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.55s forwards;
+    }
+
+    /* Messages */
+    .msg-en, .msg-es {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .msg-en { animation-delay: 0.65s; }
+    .msg-es { animation-delay: 0.75s; }
+
+    .msg-label {
+      font-size: 10px; font-family: 'DM Mono', monospace;
+      color: var(--text-meta); letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 6px;
+    }
+    .msg-text {
+      font-size: clamp(14px, 3.5vw, 16px);
+      color: var(--text-dim);
+      line-height: 1.6;
+      max-width: 420px;
+    }
+
+    .separator {
+      width: 1px; height: 32px;
+      background: var(--border);
+      margin: 20px auto;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.7s forwards;
+    }
+
+    /* Footer */
+    .footer {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      padding: 16px;
+      border-top: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.9s forwards;
+    }
+    .footer-txt {
+      font-size: 11px; font-family: 'DM Mono', monospace;
+      color: var(--text-meta);
+    }
+    .footer-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-meta); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .brand { margin-bottom: 32px; }
+      .error-code { letter-spacing: -2px; margin-bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-dot">S</div>
+      <span class="brand-name">Siance</span>
     </div>
-    <div>
-      <footer>
-        <p> if you have any more questions send a EMAIL to synccontac.opinions@gmail.com
-        </p>
-      </footer>
+
+    <div class="status-badge">
+      <div class="status-dot"></div>
+      <span class="status-txt">service offline</span>
     </div>
-  </body>
+
+    <div class="error-code">503</div>
+    <div class="divider"></div>
+
+    <div class="msg-en">
+      <div class="msg-label">EN</div>
+      <p class="msg-text">This service is unavaliable in your country and/or in general.<br>For questions, please contact Syntyc Company: synccontac.opinions@gmail.com</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="msg-es">
+      <div class="msg-label">ES</div>
+      <p class="msg-text">Este servicio no esta disponible en su pais y/o en general.<br>Para preguntas, contacta a Syntyc Company: synccontac.opinions@gmail.com</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span class="footer-txt">Syntyc Co.</span>
+    <div class="footer-dot"></div>
+    <span class="footer-txt">© 2026</span>
+    <div class="footer-dot"></div>
+    <span class="footer-txt">Powered by Sync 0.2</span>
+    <span class="footer-text"> Developed by X Studios</span>
+  </footer>
+</body>
 </html>
